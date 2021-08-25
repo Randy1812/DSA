@@ -19,5 +19,5 @@ double e(int x, int n)
 
 int main()
 {
- printf("%f ", e(4,10));
+ printf("%f ", e(1,3));
 }
