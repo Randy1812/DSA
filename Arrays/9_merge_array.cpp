@@ -33,7 +33,7 @@ void merge_array(Array &ar1, Array &ar2, Array &ar3)
        else if(ar1.A[i] == ar2.A[j])
          {
           ar3.A[k++] = ar1.A[i++];
-          j++;
+          ar3.A[k++] = ar2.A[j++];
          }
        else
          {
