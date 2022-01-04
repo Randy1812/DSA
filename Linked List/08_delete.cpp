@@ -1,4 +1,3 @@
-
 #include<iostream>
 
 using namespace std;
@@ -40,31 +39,35 @@ void create(int A[], int n)
     }
 }
 
-//Make the element to be searched the first element of the linked list.
-
-node* imp_search (node* p, int key)
+void del(int pos)
 {
- node *q = NULL;
- while(p!=NULL)
+ node *p=first;
+ if(pos==1)
+   {
+    first=first->next;
+    free(p);
+   }
+ else
+   {
+    node *q=NULL;
+    for(int i=0;i<pos-1 && p;i++)
+       {
+        q=p;
+        p=p->next;
+       }
+    if(p)
       {
-       if(key==p->data)
-         {
-          q->next=p->next;
-          p->next=first;
-          first=p;
-         }
-       q=p;
-       p=p->next;
+       q->next=p->next;
+       free(p);
       }
+   }
 }
 
 int main()
 {
  int A[] = {3,5,7,10,15};
  create(A,5);
+ del(5);
  disp(first);
- node *result;
- result = recursive_search(first,15);
- result = recursive_search(first,12);
 }
 
