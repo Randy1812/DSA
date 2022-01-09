@@ -39,31 +39,31 @@ void create(int A[], int n)
     }
 }
 
-int check_loop(node *f)
+int check_loop()
 {
- node *p=NULL,*q=NULL;
- while(p!=q)
+ node *p=first,*q=first;
+ do
+   {
+    if(p==NULL || q==NULL)
       {
-       if(p==NULL || q==NULL)
-         {
-          return 0;
-         }
-       p=p->next;
-       q=q->next;
-       q=q!=NULL?q->next:NULL;
+       return 0;
       }
+    p=p->next;
+    q=q->next;
+    q=q!=NULL?q->next:NULL;
+   }while(p!=q);
  return 1;
 }
 
 int main()
 {
  node *t1,*t2;
- int A[] = {10,20,30,40,50};
+ int A[] = {10};
  create(A,5);
- t1=first->next->next;
- t2=first->next->next->next->next;
- t2->next=t1;
- if(check_loop(first))
+// t1=first->next->next;
+// t2=first->next->next->next->next;
+// t2->next=t1;
+ if(check_loop())
    {
     cout<<"There is a loop.";
    }
