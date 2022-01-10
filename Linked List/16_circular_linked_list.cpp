@@ -105,7 +105,7 @@ void insert(int index, int x)
 int del(int index)
 {
  Node *p=head,*q=NULL;
- if(index<0 || index>length(head))
+ if(index<1 || index>length(head))
    {
     return -1;
    }
