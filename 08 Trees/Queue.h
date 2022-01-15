@@ -1,8 +1,10 @@
+#include<stdlib.h>
+
 struct Node
 {
-    struct Node *lchild;
+    struct Node *left;
     int data;
-    struct Node *rchild;
+    struct Node *right;
 };
 struct Queue
 {
@@ -15,8 +17,7 @@ void create(struct Queue *q,int size)
 {
     q->size=size;
     q->front=q->rear=0;
-    q->Q=(struct Node **)malloc(q->size*sizeof(struct
-                                Node *));
+    q->Q=(struct Node **)malloc(q->size*sizeof(struct Node *));
 }
 void enqueue(struct Queue *q,struct Node *x)
 {
