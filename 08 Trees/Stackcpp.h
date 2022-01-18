@@ -14,6 +14,11 @@ void create_stack(struct Stack *st, int size)
     st->S = (struct Node**)malloc(st->size*sizeof(struct Node*));
 }
 
+int stacktop(Stack *st)
+{
+ return st->S[st->top]->data;
+}
+
 void push(struct Stack *st, struct Node *x)
 {
     if (st->top == st->size-1)

@@ -8,36 +8,116 @@ class BST
  public:
     Node *root;
     BST(){root=NULL;}
+    int Height(Node *root);
+    int Height(){return Height(root);};
     Node* recursive_insert(Node *p, int x);
     void iterative_insert(int x);
     Node* recursive_search(Node *p, int x);
     Node* iterative_search(Node *p, int x);
-    int remove();
+    Node* recursive_remove(Node *p, int x);
+    Node* inorder_predecessor(Node *p);
+    Node* inorder_successor(Node *p);
     void Inorder(Node *p);
     void Inorder(){cout<<"\n\nInorder : ";Inorder(root);cout<<"\n";};
     void Levelorder(Node *p);
     void Levelorder(){cout<<"\n\nLevelorder : ";Levelorder(root);cout<<"\n";};
 };
 
+Node* BST::inorder_predecessor(Node *p)
+{
+ while(p&&p->right!=NULL)
+       p=p->right;
+ return p;
+}
+
+Node *BST::inorder_successor(Node *p)
+{
+ while(p&&p->left!=NULL)
+       p=p->left;
+ return p;
+}
+
+int BST::Height(Node *root)
+{
+ int x=0,y=0;
+ if(root==NULL)
+   {
+    return 0;
+   }
+ x=Height(root->left);
+ y=Height(root->left);
+ if(x>y)
+   {
+    return x+1;
+   }
+ else
+   {
+    return y+1;
+   }
+}
+
+Node* BST::recursive_remove(Node *p, int x)
+{
+
+ Node *q;
+ if(p==NULL)
+   {
+    return NULL;
+   }
+ if(p->left==NULL && p->right==NULL)
+   {
+    if(p==root)
+      {
+       root=NULL;
+      }
+    delete p;
+    return NULL;
+   }
+ if(x<p->data)
+   {
+    p->left=recursive_remove(p->left,x);
+   }
+ else if(x>p->data)
+   {
+    p->right=recursive_remove(p->right,x);
+   }
+ else
+   {
+    if(Height(p->left)>Height(p->right))
+      {
+       q=inorder_predecessor(p->left);
+       p->data=q->data;
+       p->left=recursive_remove(p->left,q->data);
+      }
+    else
+      {
+       q=inorder_successor(p->right);
+       p->data=q->data;
+       p->right=recursive_remove(p->right,q->data);
+      }
+   }
+ return p;
+}
+
 Node* BST::recursive_insert(Node *p, int x)
 {
  Node *t;
  if(p==NULL)
    {
-    t = new Node;
+    t=new Node;
     t->data=x;
     t->left=t->right=NULL;
     return t;
    }
- else if(x<p->data)
+ if(x<p->data)
    {
     p->left=recursive_insert(p->left,x);
    }
- else
+ else if(x>p->data)
    {
     p->right=recursive_insert(p->right,x);
    }
- return t;
+ return p;
 }
 
 void BST::iterative_insert(int x)
@@ -127,11 +207,6 @@ Node* BST::iterative_search(Node *p, int x)
  return NULL;
 }
 
-int BST::remove()
-{
-
-}
-
 void BST::Inorder(Node *p)
 {
  if(p)
@@ -170,8 +245,11 @@ int main()
  bst.recursive_insert(bst.root,1);
  bst.recursive_insert(bst.root,45);
  bst.recursive_insert(bst.root,233);
+ bst.recursive_insert(bst.root,4);
  bst.recursive_insert(bst.root,89);
-// bst.recursive_insert(bst.root,12);
+ bst.Inorder();
+ bst.recursive_remove(bst.root,45);
+ bst.Inorder();
 
 
 // bst.iterative_insert(20);
@@ -180,5 +258,5 @@ int main()
 // bst.iterative_insert(233);
 // bst.iterative_insert(4);
 // bst.iterative_insert(89);
- bst.Inorder();
+// bst.Inorder();
 }
